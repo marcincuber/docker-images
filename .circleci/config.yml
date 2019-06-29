@@ -29,7 +29,7 @@ jobs:
     steps:
       - checkout
       - lint:
-          directory: terraform
+        directory: terraform
   build:
     executor: build-docker
     steps:
@@ -39,6 +39,7 @@ jobs:
           name: Build Docker image
           command: |
             docker build -t $IMAGE_NAME:latest .
+        directory: terraform
 
 workflows:
   version: 2.1
