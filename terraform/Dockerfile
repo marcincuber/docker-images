@@ -1,7 +1,9 @@
-ARG IMAGE
-FROM $IMAGE
+FROM ubuntu:18.04
 
-RUN apk --no-cache add ca-certificates
+MAINTAINER marcin cuber
+
+RUN apt update && \
+    apt install -y apt-transport-https ca-certificates
 
 WORKDIR /terraform
 
