@@ -8,6 +8,12 @@ executors:
     docker:
       - image: hadolint/hadolint:v1.16.0-debian
 
+  build-docker:
+    environment:
+      IMAGE_NAME: marcincuber/terraform
+    docker:
+      - image: circleci/buildpack-deps:stretch
+
 commands:
   lint:
     description: "Lint a dockerfile"
@@ -24,16 +30,22 @@ jobs:
       - checkout
       - lint:
           directory: terraform
-
-  test:
-    machine: true
+  build:
+    executor: build-docker
     steps:
       - checkout
-      - test:
-          directory: terraform
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: |
+            docker build -t $IMAGE_NAME:latest .
 
 workflows:
   version: 2.1
   build:
     jobs:
       - lint
+      - build:
+        filters:
+          branches:
+            only: master
