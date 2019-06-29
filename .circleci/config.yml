@@ -32,6 +32,17 @@ jobs:
       - test:
           directory: terraform
 
+  build:
+    description: "Build a directory using make"
+    environment:
+      IMAGE_NAME: marcincuber/terraform
+    parameters:
+      directory:
+        type: string
+    steps:
+      - run: |
+        docker build -t $IMAGE_NAME:latest .
+
 
   build-images:
     description: "Images that will be used to run applications"
