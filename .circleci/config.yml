@@ -40,9 +40,8 @@ jobs:
       directory:
         type: string
     steps:
-      - run: |
-        docker build -t $IMAGE_NAME:latest .
-
+      - run:
+        command: docker build -t $IMAGE_NAME:latest .
 
   build-images:
     description: "Images that will be used to run applications"
