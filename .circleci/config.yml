@@ -16,6 +16,16 @@ commands:
         type: string
     steps:
       - run: hadolint << parameters.directory >>/Dockerfile
+  build:
+    description: "Build a directory using make"
+    environment:
+      IMAGE_NAME: marcincuber/terraform
+    parameters:
+      directory:
+        type: string
+    steps:
+      - run:
+        command: docker build -t $IMAGE_NAME:latest .
 
 jobs:
   lint:
@@ -31,17 +41,6 @@ jobs:
       - checkout
       - test:
           directory: terraform
-
-  build:
-    description: "Build a directory using make"
-    environment:
-      IMAGE_NAME: marcincuber/terraform
-    parameters:
-      directory:
-        type: string
-    steps:
-      - run:
-        command: docker build -t $IMAGE_NAME:latest .
 
   build-images:
     description: "Images that will be used to run applications"
@@ -61,5 +60,5 @@ workflows:
     jobs:
       - lint
       - build-images:
-          requires:
-            - lint
+        requires:
+          - lint
