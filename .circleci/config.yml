@@ -24,7 +24,32 @@ commands:
       directory:
         type: string
     steps:
-      - run: make -C << parameters.directory >> build_version
+      - run: |
+            make -C << parameters.directory >> build_version
+            make -C << parameters.directory >> save
+
+  push-setup:
+    description: "Setup a machine to do Docker pushes"
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run: |
+            cp -R bin/* /usr/local/bin
+            docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+
+  push:
+    description: "Push a directory using make"
+    parameters:
+     directory:
+       type: string
+    steps:
+      - run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+      - run: |
+            make -C << parameters.directory >> load
+            make -C << parameters.directory >> push_version
 
 jobs:
   lint:
@@ -50,6 +75,17 @@ jobs:
           root: ./
           paths: *build-images
 
+  push-images:
+    docker:
+      - image: docker:18.09.7
+    steps:
+      - push-setup
+      - push:
+          directory: terraform
+      - push:
+          directory: kubectl
+
+
 workflows:
   version: 2.1
   build_everything:
@@ -58,3 +94,6 @@ workflows:
       - build-images:
           requires:
             - lint
+      - push-images:
+          requires:
+            - build-images
