@@ -1,0 +1,2 @@
+ignored:
+  - DL3006 # this is triggered because we're using build args to determine what image to use
