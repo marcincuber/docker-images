@@ -1,7 +1,7 @@
 LOGIN_CMD := "docker login $(REGISTRY)"
 
 build_version:
-	docker build -t $(REGISTRY):$(TF_VERSION) --build-arg BASE_IMAGE=$(BASE_IMAGE) --build-arg TF_VERSION=$(TF_VERSION) .
+	docker build -t $(REGISTRY):$(VERSION) --build-arg BASE_IMAGE=$(BASE_IMAGE) --build-arg VERSION=$(VERSION) .
 # build_version:
 # 	docker build -t $(REGISTRY)/$(NAME):$(CURRENT_VERSION) --build-arg IMAGE=$(IMAGE) .
 

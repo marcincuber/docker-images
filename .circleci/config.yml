@@ -2,12 +2,12 @@ version: 2.1
 
 build-images: &build-images
   - terraform
-  # - kubectl
+  - kubectl
 
 executors:
   lint:
     docker:
-      - image: hadolint/hadolint:v1.16.0-debian
+      - image: hadolint/hadolint:v1.17.0-debian
 
 commands:
   lint:
@@ -27,7 +27,7 @@ commands:
       - run: make -C << parameters.directory >> build_version
 
 jobs:
-  lint-all:
+  lint:
     executor: lint
     steps:
       - checkout
@@ -44,6 +44,8 @@ jobs:
       - checkout
       - build:
           directory: terraform
+      - build:
+          directory: kubectl
       - persist_to_workspace:
           root: ./
           paths: *build-images
@@ -52,5 +54,7 @@ workflows:
   version: 2.1
   build_everything:
     jobs:
-      - lint-all
+      - lint
       - build-images
+        requires:
+          - lint

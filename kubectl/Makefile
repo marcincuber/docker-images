@@ -1,13 +1,4 @@
-DOCKER_IMAGE ?= "newsuk/kubectl-cli"
-DOCKER_TAG ?= "v1.12.2"
-
-docker_build:
-	@docker build \
-	  --build-arg KUBE_VERSION=${DOCKER_TAG} \
-	  -t $(DOCKER_IMAGE):$(DOCKER_TAG) .
-
-docker_push:
-	docker push $(DOCKER_IMAGE):$(DOCKER_TAG)
-
-test:
-	docker run $(DOCKER_IMAGE):$(DOCKER_TAG) version --client
+include ../default.make
+VERSION="v1.15.0"
+BASE_IMAGE=ubuntu:18.04
+REGISTRY=marcincuber/kubectl
