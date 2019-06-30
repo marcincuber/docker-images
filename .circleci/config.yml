@@ -27,7 +27,7 @@ commands:
       - run: make -C << parameters.directory >> build_version
 
 jobs:
-  lint:
+  lint-all:
     executor: lint
     steps:
       - checkout
@@ -52,5 +52,5 @@ workflows:
   version: 2.1
   build_everything:
     jobs:
-      - lint
+      - lint-all
       # - build-images
