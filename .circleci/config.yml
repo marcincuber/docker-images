@@ -58,10 +58,7 @@ commands:
               make -C << parameters.directory >> load
               make -C << parameters.directory >> push_version
             fi
-      # - run: |
-      #       make -C << parameters.directory >> load
-      #       make -C << parameters.directory >> push_version
-
+            
 jobs:
   lint:
     executor: lint
@@ -114,6 +111,6 @@ workflows:
       - push-images:
           requires:
             - build-images
-          # filters:
-          #   branches:
-          #     only: master
+          filters:
+            branches:
+              only: master
