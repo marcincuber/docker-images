@@ -40,7 +40,7 @@ commands:
       - run: |
             ls
             pwd
-            docker-setup
+            docker images
             docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 
   push:
