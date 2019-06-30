@@ -8,12 +8,6 @@ executors:
     docker:
       - image: hadolint/hadolint:v1.16.0-debian
 
-  build-docker:
-    environment:
-      IMAGE_NAME: marcincuber/terraform
-    docker:
-      - image: circleci/buildpack-deps:stretch
-
 commands:
   lint:
     description: "Lint a dockerfile"
@@ -23,6 +17,16 @@ commands:
     steps:
       - run: hadolint << parameters.directory >>/Dockerfile
 
+  build:
+    description: "Build a directory using make"
+    parameters:
+      directory:
+        type: string
+    steps:
+      - run: |
+            make -C << parameters.directory >> latest
+            make -C << parameters.directory >> save
+
 jobs:
   lint:
     executor: lint
@@ -30,16 +34,17 @@ jobs:
       - checkout
       - lint:
         directory: terraform
-  build:
-    executor: build-docker
+  build-images:
+    description: "Images that will be used to run applications"
+    machine:
+      docker_layer_caching: true
     steps:
       - checkout
-      - setup_remote_docker
-      - run:
-          name: Build Docker image
-          command: |
-            docker build -t $IMAGE_NAME:latest .
-        directory: terraform
+      - build:
+          directory: terraform
+      - persist_to_workspace:
+          root: ./
+          paths: *build-images
 
 workflows:
   version: 2.1
