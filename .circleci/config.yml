@@ -37,7 +37,6 @@ commands:
       - attach_workspace:
           at: ./
       - run: |
-            cp -R bin/* /usr/local/bin
             docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 
   push:
