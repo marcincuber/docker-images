@@ -36,21 +36,21 @@ jobs:
       - lint:
           directory: kubectl
   
-  # build-images:
-  #   description: "Images that will be used to run applications"
-  #   machine:
-  #     docker_layer_caching: true
-  #   steps:
-  #     - checkout
-  #     - build:
-  #       directory: terraform
-  #     - persist_to_workspace:
-  #       root: ./
-  #       paths: *build-images
+  build-images:
+    description: "Images that will be used to run applications"
+    machine:
+      docker_layer_caching: true
+    steps:
+      - checkout
+      - build:
+        directory: terraform
+      - persist_to_workspace:
+        root: ./
+        paths: *build-images
 
 workflows:
   version: 2.1
   build_everything:
     jobs:
       - lint-all
-      # - build-images
+      - build-images
