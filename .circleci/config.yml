@@ -36,8 +36,7 @@ commands:
       - checkout
       - attach_workspace:
           at: ./
-      - run: |
-            docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+      - run:  docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 
   push:
     description: "Push a directory using make"
