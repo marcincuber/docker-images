@@ -32,16 +32,13 @@ commands:
   push-setup:
     description: "Setup a machine to do Docker pushes"
     steps:
-      - run: apk add --no-cache build-base ca-certificates
+      - run: apk add --no-cache build-base
       - setup_remote_docker:
           docker_layer_caching: true
       - checkout
       - attach_workspace:
           at: ./
       - run: |
-            ls
-            pwd
-            docker images
             docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 
   push:
