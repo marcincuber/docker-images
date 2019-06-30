@@ -16,7 +16,7 @@ commands:
       directory:
         type: string
     steps:
-      - run: hadolint << parameters.directory >> /Dockerfile
+      - run: hadolint << parameters.directory >> Dockerfile
 
   build:
     description: "Build a directory using make"
