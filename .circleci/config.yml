@@ -48,9 +48,19 @@ commands:
        type: string
     steps:
       - run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-      - run: |
-            make -C << parameters.directory >> load
-            make -C << parameters.directory >> push_version
+      - run:
+          name: Check if docker image with tag already exists
+          command: |
+            if make -C << parameters.directory >> image_exists > /dev/null; 
+            then
+              echo "Docker image already exists."
+            else
+              make -C << parameters.directory >> load
+              make -C << parameters.directory >> push_version
+            fi
+      # - run: |
+      #       make -C << parameters.directory >> load
+      #       make -C << parameters.directory >> push_version
 
 jobs:
   lint:
@@ -104,3 +114,6 @@ workflows:
       - push-images:
           requires:
             - build-images
+          # filters:
+          #   branches:
+          #     only: master

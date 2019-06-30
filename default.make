@@ -13,3 +13,6 @@ load:
 
 push_version:
 	docker push $(REGISTRY)/$(NAME):$(VERSION)
+
+image_exists:
+	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest inspect $(REGISTRY)/$(NAME):$(VERSION)
