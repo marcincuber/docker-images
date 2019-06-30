@@ -34,6 +34,7 @@ jobs:
       - checkout
       - lint:
         directory: terraform
+  
   build-images:
     description: "Images that will be used to run applications"
     machine:
@@ -51,7 +52,7 @@ workflows:
   build:
     jobs:
       - lint
-      - build:
+      - build-images:
         filters:
           branches:
             only: master
