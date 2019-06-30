@@ -1,14 +1,15 @@
 LOGIN_CMD := "docker login $(REGISTRY)"
-BASE_IMAGE ?= ubuntu:18.04
+BASE_IMAGE ?= "ubuntu:18.04"
+REGISTRY ?= "marcincuber"
 
 build_version:
-	docker build -t $(REGISTRY):$(VERSION) --build-arg BASE_IMAGE=$(BASE_IMAGE) --build-arg VERSION=$(VERSION) .
+	docker build -t $(REGISTRY)/$(NAME):$(VERSION) --build-arg BASE_IMAGE=$(BASE_IMAGE) --build-arg VERSION=$(VERSION) .
 
 save:
-	docker save $(REGISTRY):$(VERSION) -o $(NAME)_$(VERSION).tar
+	docker save $(REGISTRY)/$(NAME):$(VERSION) -o $(NAME)_$(VERSION).tar
 
 load:
 	docker load -i $(NAME)_$(VERSION).tar
 
 push_version:
-	docker push $(REGISTRY):$(VERSION)
+	docker push $(REGISTRY)/$(NAME):$(VERSION)

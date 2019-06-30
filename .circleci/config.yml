@@ -3,6 +3,7 @@ version: 2.1
 build-images: &build-images
   - terraform
   - kubectl
+  - hashicorp
 
 executors:
   lint:
@@ -63,6 +64,8 @@ jobs:
           directory: terraform
       - lint:
           directory: kubectl
+      - lint:
+          directory: hashicorp
   
   build-images:
     description: "Images that will be used to run applications"
@@ -74,6 +77,8 @@ jobs:
           directory: terraform
       - build:
           directory: kubectl
+      - build: 
+          directory: hashicorp
       - persist_to_workspace:
           root: ./
           paths: *build-images
@@ -87,6 +92,8 @@ jobs:
           directory: terraform
       - push:
           directory: kubectl
+      - push:
+          directory: hashicorp
 
 
 workflows:

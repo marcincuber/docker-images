@@ -1,0 +1,5 @@
+include ../default.make
+TF_VERSION=0.12.3
+NAME=hashicorp
+PACKER_VERSION="1.4.2"
+VERSION="$(TF_VERSION)-$(PACKER_VERSION)"
