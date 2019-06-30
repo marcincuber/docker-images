@@ -1,8 +1,8 @@
 version: 2.1
 
 build-images: &build-images
-    - terraform
-    - kubectl
+  - terraform
+  # - kubectl
 
 executors:
   lint:
@@ -45,8 +45,8 @@ jobs:
       - build:
           directory: terraform
       - persist_to_workspace:
-        root: ./
-        paths: *build-images
+          root: ./
+          paths: *build-images
 
 workflows:
   version: 2.1
