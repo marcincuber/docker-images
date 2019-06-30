@@ -15,7 +15,7 @@ commands:
       directory:
         type: string
     steps:
-      - run: hadolint << parameters.directory >>/Dockerfile
+      - run: hadolint << parameters.directory >> /Dockerfile
 
   build:
     description: "Build a directory using make"
@@ -23,7 +23,7 @@ commands:
       directory:
         type: string
     steps:
-      - run: make -C << parameters.directory >>build_version
+      - run: make -C << parameters.directory >> build_version
 
 jobs:
   lint:
@@ -41,9 +41,9 @@ jobs:
       - checkout
       - build:
         directory: terraform
-      - persist_to_workspace:
-        root: ./
-        paths: *build-images
+      # - persist_to_workspace:
+      #   root: ./
+      #   paths: *build-images
 
 workflows:
   version: 2.1
