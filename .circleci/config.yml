@@ -24,8 +24,8 @@ commands:
         type: string
     steps:
       - run: |
-        make -C << parameters.directory >> build_version
-
+            make -C << parameters.directory >> build_version
+            echo "I am here"
 jobs:
   lint:
     executor: lint
