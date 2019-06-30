@@ -24,8 +24,7 @@ commands:
         type: string
     steps:
       - run: |
-            make -C << parameters.directory >> latest
-            make -C << parameters.directory >> save
+        make -C << parameters.directory >> build_version
 
 jobs:
   lint:
@@ -42,10 +41,10 @@ jobs:
     steps:
       - checkout
       - build:
-          directory: terraform
+        directory: terraform
       - persist_to_workspace:
-          root: ./
-          paths: *build-images
+        root: ./
+        paths: *build-images
 
 workflows:
   version: 2.1
@@ -53,6 +52,8 @@ workflows:
     jobs:
       - lint
       - build-images:
+        requires:
+          - lint
         filters:
           branches:
             only: master
