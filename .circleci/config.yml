@@ -32,9 +32,9 @@ jobs:
     steps:
       - checkout
       - lint:
-        directory: terraform
+          directory: terraform
       - lint:
-        directory: kubectl
+          directory: kubectl
   
   # build-images:
   #   description: "Images that will be used to run applications"
