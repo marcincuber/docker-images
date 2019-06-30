@@ -43,7 +43,7 @@ jobs:
     steps:
       - checkout
       - build:
-        directory: terraform
+          directory: terraform
       - persist_to_workspace:
         root: ./
         paths: *build-images
