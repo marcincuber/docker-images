@@ -47,7 +47,7 @@ jobs:
 
 workflows:
   version: 2.1
-  build:
+  build_everything:
     jobs:
       - lint
       - build-images
