@@ -41,9 +41,9 @@ jobs:
       - checkout
       - build:
         directory: terraform
-      - persist_to_workspace:
-        root: ./
-        paths: *build-images
+      # - persist_to_workspace:
+      #   root: ./
+      #   paths: *build-images
 
 workflows:
   version: 2.1
