@@ -31,12 +31,16 @@ commands:
   push-setup:
     description: "Setup a machine to do Docker pushes"
     steps:
+      - run: apk add --no-cache build-base ca-certificates
       - setup_remote_docker:
           docker_layer_caching: true
       - checkout
       - attach_workspace:
           at: ./
-      - run:  docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+      - run: |
+            cp -R bin/* /usr/local/bin
+            docker-setup
+            docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 
   push:
     description: "Push a directory using make"
