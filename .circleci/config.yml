@@ -103,6 +103,9 @@ jobs:
 workflows:
   version: 2.1
   build_everything:
+    # triggers:
+    #   - schedule:
+    #       cron: "0 8 * * *"
     jobs:
       - lint
       - build-images:
