@@ -78,6 +78,8 @@ jobs:
   
   build-images:
     description: "Images that will be used to run applications"
+    docker:
+      - image: docker:18.09.7
     machine:
       docker_layer_caching: true
     steps:
