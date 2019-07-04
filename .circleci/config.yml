@@ -32,7 +32,7 @@ commands:
   push-setup:
     description: "Setup a machine to do Docker pushes"
     steps:
-      - run: apk add --no-cache build-base
+      - run: apk add --no-cache build-base curl jq
       - setup_remote_docker:
           docker_layer_caching: true
       - checkout
