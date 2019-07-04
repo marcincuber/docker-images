@@ -26,8 +26,13 @@ commands:
         type: string
     steps:
       - run: |
-            make -C << parameters.directory >> build_version
-            make -C << parameters.directory >> save
+            if make -C << parameters.directory >> image_exists > /dev/null; 
+            then
+              echo "Docker image already exists."
+            else
+              make -C << parameters.directory >> build_version
+              make -C << parameters.directory >> save
+            fi
 
   push-setup:
     description: "Setup a machine to do Docker pushes"
