@@ -106,6 +106,10 @@ workflows:
     triggers:
       - schedule:
           cron: "0 8 * * *"
+          filters:
+            branches:
+              only:
+                - master
     jobs:
       - lint
       - build-images:
