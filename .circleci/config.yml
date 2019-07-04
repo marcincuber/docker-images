@@ -26,13 +26,8 @@ commands:
         type: string
     steps:
       - run: |
-            if make -C << parameters.directory >> image_exists > /dev/null; 
-            then
-              echo "Docker image already exists."
-            else
-              make -C << parameters.directory >> build_version
-              make -C << parameters.directory >> save
-            fi
+            make -C << parameters.directory >> build_version
+            make -C << parameters.directory >> save
 
   push-setup:
     description: "Setup a machine to do Docker pushes"
@@ -78,8 +73,6 @@ jobs:
   
   build-images:
     description: "Images that will be used to run applications"
-    docker:
-      - image: docker:18.09.7
     machine:
       docker_layer_caching: true
     steps:
