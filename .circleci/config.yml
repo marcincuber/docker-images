@@ -70,6 +70,8 @@ jobs:
           directory: kubectl
       - lint:
           directory: hashicorp
+      - lint:
+          directory: vagrant
   
   build-images:
     description: "Images that will be used to run applications"
@@ -83,6 +85,8 @@ jobs:
           directory: kubectl
       - build: 
           directory: hashicorp
+      - build: 
+          directory: vagrant
       - persist_to_workspace:
           root: ./
           paths: *build-images
@@ -98,7 +102,8 @@ jobs:
           directory: kubectl
       - push:
           directory: hashicorp
-
+      - push:
+          directory: vagrant
 
 workflows:
   version: 2.1
