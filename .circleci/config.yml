@@ -4,6 +4,7 @@ build-images: &build-images
   - terraform
   - kubectl
   - hashicorp
+  - vagrant
 
 executors:
   lint:
