@@ -124,6 +124,6 @@ workflows:
       - push-images:
           requires:
             - build-images
-          filters:
-            branches:
-              only: master
+          # filters:
+          #   branches:
+          #     only: master
