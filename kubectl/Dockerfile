@@ -2,7 +2,7 @@ ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
 RUN apt update && apt upgrade -y && \
-  	apt install -y apt-transport-https ca-certificates curl
+  	apt install -y apt-transport-https awscli ca-certificates curl
 
 ARG VERSION
 
