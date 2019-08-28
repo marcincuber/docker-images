@@ -2,9 +2,11 @@ ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
 RUN apt update && apt upgrade -y && \
-  	apt install -y apt-transport-https ca-certificates curl jq python3-pip
+  	apt install -y apt-transport-https ca-certificates curl jq groff-base python3-pip
 
-RUN pip3 install awscli --upgrade --user
+RUN pip3 install awscli
+
+RUN echo "export PATH=~/.local/bin:$PATH" >> ~/.bashrc
 
 ARG VERSION
 
