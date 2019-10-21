@@ -34,8 +34,6 @@ commands:
     description: "Setup a machine to do Docker pushes"
     steps:
       - run: apk add --no-cache build-base curl jq
-      - setup_remote_docker:
-          docker_layer_caching: true
       - checkout
       - attach_workspace:
           at: ./
@@ -76,8 +74,6 @@ jobs:
   
   build-images:
     description: "Images that will be used to run applications"
-    machine:
-      docker_layer_caching: true
     steps:
       - checkout
       - build:
