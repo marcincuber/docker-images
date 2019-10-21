@@ -111,13 +111,13 @@ jobs:
 workflows:
   version: 2.1
   build_everything:
-    # triggers:
-    #   - schedule:
-    #       cron: "0 8 * * *"
-    #       filters:
-    #         branches:
-    #           only:
-    #             - master
+    triggers:
+      - schedule:
+          cron: "0 8 * * *"
+          filters:
+            branches:
+              only:
+                - master
     jobs:
       - lint
       - build-images:
@@ -126,6 +126,6 @@ workflows:
       - push-images:
           requires:
             - build-images
-          # filters:
-          #   branches:
-          #     only: master
+          filters:
+            branches:
+              only: master
